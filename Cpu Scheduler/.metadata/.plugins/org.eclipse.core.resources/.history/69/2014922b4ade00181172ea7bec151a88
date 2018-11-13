@@ -1,0 +1,10 @@
+package view;
+
+import javafx.stage.Stage;
+
+public class Show_Main_Screen {
+
+	public Show_Main_Screen(Stage stage) {
+		
+	}
+}

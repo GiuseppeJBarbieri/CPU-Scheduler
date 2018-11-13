@@ -1,0 +1,67 @@
+package model;
+
+public class Process_Object {
+	private int processNum;
+	private int burstTime;
+	private int arrivalTime;
+	private int waitTime;
+	private int turnAroundTime;
+
+	public Process_Object(int processNum, int burstTime, int arrivalTime, int waitTime, int turnAroundTime) {
+		super();
+		this.processNum = processNum;
+		this.burstTime = burstTime;
+		this.arrivalTime = arrivalTime;
+		this.waitTime = waitTime;
+		this.turnAroundTime = turnAroundTime;
+	}
+
+	public Process_Object(int processNum, int waitTime, int turnAroundTime, int arrivalTime) {
+		super();
+		this.processNum = processNum;
+		this.waitTime = waitTime;
+		this.turnAroundTime = turnAroundTime;
+		this.arrivalTime = arrivalTime;
+	}
+
+	public int getProcessNum() {
+		return processNum;
+	}
+
+	public void setProcessNum(int processNum) {
+		this.processNum = processNum;
+	}
+
+	public int getBurstTime() {
+		return burstTime;
+	}
+
+	public void setBurstTime(int burstTime) {
+		this.burstTime = burstTime;
+	}
+
+	public int getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(int arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public int getWaitTime() {
+		return waitTime;
+	}
+
+	public void setWaitTime(int waitTime) {
+		this.waitTime = waitTime;
+	}
+
+	public int getTurnAroundTime() {
+		return turnAroundTime;
+	}
+
+	public void setTurnAroundTime(int turnAroundTime) {
+		this.turnAroundTime = turnAroundTime;
+	}
+
+}

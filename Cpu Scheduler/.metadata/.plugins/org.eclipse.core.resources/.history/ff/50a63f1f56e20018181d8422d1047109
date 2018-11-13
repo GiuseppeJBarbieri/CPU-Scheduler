@@ -1,0 +1,12 @@
+package alerts;
+
+public class Missing_Information_Alert {
+
+	public Missing_Information_Alert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Quantity Exceeded!");
+		alert.setHeaderText("The amount you are trying to sell exceeds what is in stock!");
+		alert.setContentText("Click ok to continue.");
+		alert.showAndWait();
+	}
+}

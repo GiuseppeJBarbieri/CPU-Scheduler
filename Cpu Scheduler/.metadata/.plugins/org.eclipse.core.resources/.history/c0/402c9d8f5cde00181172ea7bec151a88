@@ -1,0 +1,59 @@
+package model;
+
+public class Process_Object {
+	private int processNum;
+	private int burstTime;
+	private int executionTime;
+	private int avgWaitTime;
+	private int avgTurnAroundTime;
+
+	public Process_Object(int processNum, int burstTime, int executionTime, int avgWaitTime, int avgTurnAroundTime) {
+		super();
+		this.processNum = processNum;
+		this.burstTime = burstTime;
+		this.executionTime = executionTime;
+		this.avgWaitTime = avgWaitTime;
+		this.avgTurnAroundTime = avgTurnAroundTime;
+	}
+
+	public int getProcessNum() {
+		return processNum;
+	}
+
+	public void setProcessNum(int processNum) {
+		this.processNum = processNum;
+	}
+
+	public int getBurstTime() {
+		return burstTime;
+	}
+
+	public void setBurstTime(int burstTime) {
+		this.burstTime = burstTime;
+	}
+
+	public int getExecutionTime() {
+		return executionTime;
+	}
+
+	public void setExecutionTime(int executionTime) {
+		this.executionTime = executionTime;
+	}
+
+	public int getAvgWaitTime() {
+		return avgWaitTime;
+	}
+
+	public void setAvgWaitTime(int avgWaitTime) {
+		this.avgWaitTime = avgWaitTime;
+	}
+
+	public int getAvgTurnAroundTime() {
+		return avgTurnAroundTime;
+	}
+
+	public void setAvgTurnAroundTime(int avgTurnAroundTime) {
+		this.avgTurnAroundTime = avgTurnAroundTime;
+	}
+
+}

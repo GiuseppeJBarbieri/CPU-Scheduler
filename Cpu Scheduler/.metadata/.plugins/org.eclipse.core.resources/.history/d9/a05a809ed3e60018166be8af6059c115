@@ -1,0 +1,22 @@
+package algorithm_simulations;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.TextField;
+
+public class Priority {
+
+	ArrayList<TextField> textFieldsList;
+	int numOfProcesses;
+	ArrayList<TextField> priorityList;
+	
+	public Priority(ArrayList<TextField> textFieldsList, int numOfProcesses, ArrayList<TextField> priorityList) {
+		this.textFieldsList = textFieldsList;
+		this.numOfProcesses = numOfProcesses;
+		this.priorityList = priorityList;
+	}
+	
+	public void calculatePriorityAlgorithm() {
+		
+	}
+}

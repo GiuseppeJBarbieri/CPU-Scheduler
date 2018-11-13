@@ -1,0 +1,11 @@
+1542077087153	Rename type 'Priority'
+1542083067382	Rename method 'setTextFieldRules'
+1542083086960	Rename method 'setChoiceBoxes'
+1542083161935	Rename method 'setupSchedulerTable'
+1542083181713	Rename method 'setProcessList'
+1542083226493	Rename method 'setRandomBurstTime'
+1542083333921	Rename method 'priorityTxtController'
+1542083426051	Move compilation unit
+1542083628262	Delete element
+1542085373512	Delete element
+1542085554417	Delete element

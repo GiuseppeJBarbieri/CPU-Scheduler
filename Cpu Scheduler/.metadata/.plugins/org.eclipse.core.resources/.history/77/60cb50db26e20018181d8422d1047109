@@ -1,0 +1,123 @@
+package algorithm_simulations;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.TextField;
+import model.Process_Object;
+import model.Round_Robin_Object;
+
+public class Round_Robin {
+	ArrayList<Process_Object> processList;
+	ArrayList<TextField> textFieldsList;
+	ArrayList<Process_Object> orderOfProcesses;
+	double avgWaitTime;
+	double avgTATime;
+	int quantum;
+
+	public Round_Robin(ArrayList<Process_Object> processList, ArrayList<TextField> textFieldsList, int quantum) {
+		super();
+		this.quantum = quantum + 1;
+		this.processList = processList;
+		this.textFieldsList = textFieldsList;
+	}
+
+	public ArrayList<Process_Object> simulateRR() {
+		ArrayList<Process_Object> cpuQueue = new ArrayList<>();
+		orderOfProcesses = new ArrayList<>();
+
+		for (Process_Object e : processList) {
+			cpuQueue.add(new Process_Object(e.getProcessNum(), e.getBurstTime()));
+		}
+
+		int i = 0;
+		while (cpuQueue.size() > 0) {
+			if (cpuQueue.size() == 1) {
+				i = 0;
+			}
+			orderOfProcesses.add(new Process_Object(cpuQueue.get(i).getProcessNum(), cpuQueue.get(i).getBurstTime(), 0, 0));
+			cpuQueue.get(i).setBurstTime((cpuQueue.get(i).getBurstTime() - quantum));
+
+			if (cpuQueue.get(i).getBurstTime() <= 0) {
+				cpuQueue.remove(i);
+				i--;
+			}
+
+			i++;
+			if (i == (cpuQueue.size())) {
+				i = 0;
+			}
+
+		}
+
+		for (Process_Object e : orderOfProcesses) {
+			if (e.getBurstTime() < 0) {
+				e.setBurstTime(0);
+			}
+		}
+		return getArrivalTime(orderOfProcesses);
+
+	}
+
+	private ArrayList<Process_Object> getArrivalTime(ArrayList<Process_Object> orderOfProcesses) {
+		int i = 0;
+		int cpuTracker = 0;
+
+		for (Process_Object e : orderOfProcesses) {
+			if (i == 0) {
+				e.setArrivalTime(0);
+				if (e.getBurstTime() < quantum) {
+					e.setExitTime(e.getBurstTime());
+					cpuTracker += e.getBurstTime();
+				} else {
+					e.setExitTime(quantum);
+					cpuTracker += quantum;
+				}
+			} else {
+				if (e.getBurstTime() >= quantum) {
+					e.setArrivalTime(cpuTracker);
+					cpuTracker += quantum;
+					e.setExitTime(cpuTracker);
+
+				} else if (e.getBurstTime() < quantum) {
+					e.setArrivalTime(cpuTracker);
+					cpuTracker += e.getBurstTime();
+					e.setExitTime(cpuTracker);
+				}
+			}
+			i++;
+		}
+		return orderOfProcesses;
+	}
+
+	public void setTextFieldInfo(ArrayList<TextField> waitTxtList, ArrayList<TextField> taTxtList, TextField avgWaitTxt,
+			TextField avgTaTxt) {
+		int lastExitTime = 0;
+		int taTime = 0;
+		double avgWait = 0;
+		double avgTA = 0;
+
+		for (int i = 0; i < waitTxtList.size(); i++) {
+			for (Round_Robin_Object e : orderOfProcesses) {
+				if (e.getProcessNum() == (i + 1)) {
+					lastExitTime = e.getExitTime();
+					taTime = e.getExitTime();
+				}
+			}
+
+			taTxtList.get(i).setText(Integer.toString(taTime));
+			if (i < orderOfProcesses.size()) {
+				waitTxtList.get(i).setText(Integer.toString(lastExitTime - orderOfProcesses.get(i).getRemainingTime()));
+			}
+		}
+
+		for (int i = 0; i < processList.size(); i++) {
+			avgWait += Integer.parseInt(waitTxtList.get(i).getText());
+		}
+		for (int i = 0; i < processList.size(); i++) {
+			avgTA += Integer.parseInt(taTxtList.get(i).getText());
+		}
+		avgWaitTxt.setText(Double.toString(avgWait / processList.size()));
+		avgTaTxt.setText(Double.toString(avgTA / processList.size()));
+	}
+
+}

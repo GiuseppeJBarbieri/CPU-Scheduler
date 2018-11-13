@@ -1,0 +1,27 @@
+/*
+ * 
+ * Created By Giuseppe Barbieri
+ * Cpu Scheduler App
+ * Com 310-S01
+ * 11/04/2018
+ * 
+ */
+
+package main;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import view.Show_Main_Screen;
+
+public class App extends Application {
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage arg0) throws Exception {
+		new Show_Main_Screen(arg0);
+	}
+
+}

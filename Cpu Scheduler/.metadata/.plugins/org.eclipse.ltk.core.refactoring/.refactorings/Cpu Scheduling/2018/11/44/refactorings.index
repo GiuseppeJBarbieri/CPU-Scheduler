@@ -1,0 +1,7 @@
+1541131433199	Rename method 'setupTable'
+1541142818471	Rename local variable 'avgWaitTime'
+1541142875246	Rename field 'executionTime'
+1541142881135	Rename local variable 'executionTime'
+1541143084970	Rename field 'executionTimeCol'
+1541143095871	Rename field 'avgWaitTimeCol'
+1541143105580	Rename field 'avgTurnAroundCol'

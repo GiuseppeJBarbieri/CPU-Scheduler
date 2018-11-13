@@ -1,0 +1,328 @@
+package algorithm_simulations;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.TextField;
+import model.Process_Object;
+
+public class First_Come_First_Serve {
+
+	private ArrayList<Process_Object> processList;
+	private TextField avgTurnaroundTimeTxt, avgWaitTimeTxt;
+	private ArrayList<TextField> textFieldsList;
+	private int numOfProcesses;
+	
+	public First_Come_First_Serve(ArrayList<Process_Object> processList, ArrayList<TextField> textFieldsList, TextField avgTurnaroundTimeTxt, TextField avgWaitTimeTxt,
+			int numOfProcesses) {
+		super();
+		this.processList = processList;
+		this.textFieldsList = textFieldsList;
+		this.avgTurnaroundTimeTxt = avgTurnaroundTimeTxt;
+		this.avgWaitTimeTxt = avgWaitTimeTxt;
+		this.numOfProcesses = numOfProcesses;
+	}
+
+
+	public ArrayList<Process_Object> simulateFCFS() {
+		processList.clear();
+		int waitTime = 0;
+		double avgWaitTime = 0;
+		double avgTurnaroundTime = 0;
+		int turnAroundTime = 0;
+		/*
+		if (numOfProcesses == 1) {
+			
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+			
+		} else if (numOfProcesses == 2) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += turnAroundTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			avgTurnaroundTime += turnAroundTime;
+			
+		} else if (numOfProcesses == 3) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+
+		} else if (numOfProcesses == 4) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+
+		} else if (numOfProcesses == 5) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p5Txt.getText());
+			processList.add(new Process_Object(5, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p5Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+		} else if (numOfProcesses == 6) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p5Txt.getText());
+			processList.add(new Process_Object(5, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p5Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p6Txt.getText());
+			processList.add(new Process_Object(6, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p6Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+
+		} else if (numOfProcesses == 7) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p5Txt.getText());
+			processList.add(new Process_Object(5, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p5Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p6Txt.getText());
+			processList.add(new Process_Object(6, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p6Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p7Txt.getText());
+			processList.add(new Process_Object(7, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p7Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+		} else if (numOfProcesses == 8) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p5Txt.getText());
+			processList.add(new Process_Object(5, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p5Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p6Txt.getText());
+			processList.add(new Process_Object(6, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p6Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p7Txt.getText());
+			processList.add(new Process_Object(7, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p7Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p8Txt.getText());
+			processList.add(new Process_Object(8, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p8Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+		} else if (numOfProcesses == 9) {
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p5Txt.getText());
+			processList.add(new Process_Object(5, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p5Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p6Txt.getText());
+			processList.add(new Process_Object(6, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p6Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p7Txt.getText());
+			processList.add(new Process_Object(7, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p7Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p8Txt.getText());
+			processList.add(new Process_Object(8, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p8Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p9Txt.getText());
+			processList.add(new Process_Object(9, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p9Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+			
+		} else */if (numOfProcesses == 10) {
+			for(int i = 0; i < 10; i++) {
+				turnAroundTime =  Integer.parseInt(textFieldsList.get(i).getText());
+				processList.add(new Process_Object(1, waitTime, turnAroundTime));
+				waitTime += Integer.parseInt(textFieldsList.get(i).getText());
+				avgWaitTime += waitTime;
+				avgTurnaroundTime += waitTime;
+			}
+			/*
+			turnAroundTime =  Integer.parseInt(p1Txt.getText());
+			processList.add(new Process_Object(1, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p1Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p2Txt.getText());
+			processList.add(new Process_Object(2, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p2Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p3Txt.getText());
+			processList.add(new Process_Object(3, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p3Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p4Txt.getText());
+			processList.add(new Process_Object(4, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p4Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p5Txt.getText());
+			processList.add(new Process_Object(5, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p5Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p6Txt.getText());
+			processList.add(new Process_Object(6, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p6Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p7Txt.getText());
+			processList.add(new Process_Object(7, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p7Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p8Txt.getText());
+			processList.add(new Process_Object(8, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p8Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p9Txt.getText());
+			processList.add(new Process_Object(9, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p9Txt.getText());
+			avgWaitTime += waitTime;
+			avgTurnaroundTime += waitTime;
+			turnAroundTime += Integer.parseInt(p10Txt.getText());
+			processList.add(new Process_Object(10, waitTime, turnAroundTime));
+			waitTime += Integer.parseInt(p10Txt.getText());
+			avgTurnaroundTime += turnAroundTime;
+			*/
+		}
+		avgTurnaroundTimeTxt.setText(Double.toString(avgTurnaroundTime/numOfProcesses));
+		avgWaitTimeTxt.setText(Double.toString(avgWaitTime/numOfProcesses));
+		return processList;
+	}
+}

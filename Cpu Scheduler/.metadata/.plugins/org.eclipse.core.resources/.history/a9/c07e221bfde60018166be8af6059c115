@@ -1,0 +1,8 @@
+package controller;
+
+public class Calculate_Algorithm {
+
+	public Calculate_Algorithm() {
+		
+	}
+}

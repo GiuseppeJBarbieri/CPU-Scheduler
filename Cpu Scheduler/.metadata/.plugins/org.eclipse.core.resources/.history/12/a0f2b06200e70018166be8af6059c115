@@ -1,0 +1,91 @@
+package controller;
+
+import java.util.ArrayList;
+
+import alerts.Missing_Information_Alert;
+import algorithm_simulations.First_Come_First_Serve;
+import algorithm_simulations.Priority_Algorithm;
+import algorithm_simulations.Round_Robin;
+import algorithm_simulations.Shortest_Job_First;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import model.Process_Object;
+import view.Main_Screen_View_Controller;
+
+public class Calculate_Algorithm {
+
+	Main_Screen_View_Controller main_Screen_View_Controller; 
+	ChoiceBox<String> numofProcessesChoiceBox; 
+	ChoiceBox<String> algorithmChoiceBox; 
+	TableView<Process_Object> schedulerTbl; 
+	ArrayList<TextField> waitTxtList; 
+	ArrayList<TextField> taTxtList; 
+	TextField avgWaitTimeTxt;
+	TextField avgTurnaroundTimeTxt;
+	
+	
+	public Calculate_Algorithm(Main_Screen_View_Controller main_Screen_View_Controller, ChoiceBox<String> numofProcessesChoiceBox, ChoiceBox<String> algorithmChoiceBox, TableView<Process_Object> schedulerTbl, ArrayList<TextField> waitTxtList, ArrayList<TextField> taTxtList, TextField avgWaitTimeTxt, TextField avgTurnaroundTimeTxt) {
+		
+	}
+	
+	public void calculate() {
+		if (numofProcessesChoiceBox.getSelectionModel().getSelectedItem() == null
+				|| algorithmChoiceBox.getSelectionModel().getSelectedItem() == null) {
+			new Missing_Information_Alert("Number of processes or algorithm selection choice boxes are empty!");
+		} else {
+			try {
+				if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 0) {
+					calculateFCFS();
+				} else if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 1) {
+					calculateSJF();
+				} else if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 2) {
+					calculateRR();
+				} else if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 3) {
+					calculatePA();
+				}
+				main_Screen_View_Controller.getProcessList().clear();
+			} catch (NumberFormatException ex) {
+				new Missing_Information_Alert("Missing burst time from one or more processes!");
+			}
+		}
+	}
+	
+	private void calculatePA() {
+		Priority_Algorithm priority = new Priority_Algorithm(burstTxtList, numOfProcesses, priorityTxtList);
+		ObservableList<Process_Object> tableList = FXCollections.observableArrayList(priority.calculatePriorityAlgorithm());
+		schedulerTbl.setItems(tableList);
+		priority.setTextFields(waitTxtList, taTxtList, avgWaitTimeTxt, avgTurnaroundTimeTxt);
+	}
+	
+	private void calculateFCFS() {
+		First_Come_First_Serve fcfs = new First_Come_First_Serve(burstTxtList, numOfProcesses);
+		ObservableList<Process_Object> tableList = FXCollections.observableArrayList(fcfs.simulateFCFS());
+		schedulerTbl.setItems(tableList);
+		fcfs.setTextFields(waitTxtList, taTxtList, avgWaitTimeTxt, avgTurnaroundTimeTxt);
+	}
+
+	private void calculateSJF() {
+		setProcessesList();
+		Shortest_Job_First sjf = new Shortest_Job_First(processList);
+		ObservableList<Process_Object> tableList = FXCollections.observableArrayList(sjf.simulateSJF());
+		schedulerTbl.setItems(tableList);
+		sjf.setTextFields(waitTxtList, taTxtList, avgWaitTimeTxt, avgTurnaroundTimeTxt);
+	}
+		
+	private void calculateRR() {
+		if (quantumNumChoice.getSelectionModel().getSelectedItem() == null) {
+			new Missing_Information_Alert("Quantum not selected!");
+		} else {
+			setProcessesList();
+			Round_Robin rr = new Round_Robin(processList, burstTxtList,
+					quantumNumChoice.getSelectionModel().getSelectedIndex());
+			ObservableList<Process_Object> tableList = FXCollections.observableArrayList(rr.simulateRR());
+			schedulerTbl.setItems(tableList);
+			rr.setTextFieldInfo(waitTxtList, taTxtList, avgWaitTimeTxt, avgTurnaroundTimeTxt);
+		}
+	}
+
+}

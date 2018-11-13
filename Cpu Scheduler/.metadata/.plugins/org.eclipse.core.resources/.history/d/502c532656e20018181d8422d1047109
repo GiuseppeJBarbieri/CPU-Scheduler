@@ -1,0 +1,15 @@
+package alerts;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+public class Missing_Information_Alert {
+
+	public Missing_Information_Alert(String s1, String s2, String s3) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Quantity Exceeded!");
+		alert.setHeaderText("The amount you are trying to sell exceeds what is in stock!");
+		alert.setContentText("Click ok to continue.");
+		alert.showAndWait();
+	}
+}

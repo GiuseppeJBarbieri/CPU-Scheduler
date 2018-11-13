@@ -1,0 +1,8 @@
+package view;
+
+public class Show_Main_Screen {
+
+	public Show_Main_Screen(Stage stage) {
+		
+	}
+}

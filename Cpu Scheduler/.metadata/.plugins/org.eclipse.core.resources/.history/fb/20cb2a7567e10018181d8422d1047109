@@ -1,0 +1,64 @@
+package algorithm_simulations;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.TextField;
+import model.Gantt_Chart_Object;
+import model.Process_Object;
+
+public class Shortest_Job_First {
+	
+	ArrayList<Process_Object> processList;
+	ArrayList<Process_Object> orderedProcessList;
+	ArrayList<TextField> textFieldsList;
+	double avgWaitTime;
+	double avgTATime;
+
+	public Shortest_Job_First(ArrayList<Process_Object> processList, ArrayList<TextField> textFieldsList) {
+		this.processList = processList;
+		this.textFieldsList = textFieldsList;
+	}
+	
+	public ArrayList<Process_Object> simulateSJF() {
+		orderedProcessList = new ArrayList<>();
+		ArrayList<Process_Object> tempList = processList;
+		int firstNum = 0;
+	
+		while(processList.size() > 0) {
+			int indexOfSmallest = 0;
+			firstNum = processList.get(0).getBurstTime();
+			for(int i = 0; i < tempList.size(); i++) {
+				if(tempList.get(i).getBurstTime() < firstNum) {
+					firstNum = tempList.get(i).getBurstTime();
+					indexOfSmallest = i;
+				}
+			}
+			orderedProcessList.add(processList.get(indexOfSmallest));
+			tempList.remove(indexOfSmallest);
+		}
+		
+		int waitTime = 0;
+		int taTime = 0;
+		avgWaitTime = 0;
+		avgTATime = 0;
+		for(int i = 0; i < orderedProcessList.size(); i++) {
+			taTime += orderedProcessList.get(i).getBurstTime();
+			orderedProcessList.get(i).setWaitTime(waitTime);
+			orderedProcessList.get(i).setArrivalTime(waitTime);
+			orderedProcessList.get(i).setTurnAroundTime(taTime);
+			avgWaitTime += waitTime;
+			avgTATime += taTime;
+			waitTime = taTime;			
+		}
+
+		return orderedProcessList;
+	}
+	
+	public double getAvgWaitTime() {
+		return avgWaitTime/orderedProcessList.size();
+	}
+	
+	public double getAvgTATime() {
+		return avgTATime/orderedProcessList.size();
+	}
+}

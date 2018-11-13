@@ -1,0 +1,92 @@
+/*
+ * 
+ * Created By Giuseppe Barbieri
+ * Cpu Scheduler App
+ * Com 310-S01
+ * 11/04/2018
+ * 
+ */
+
+package algorithm_simulations;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.TextField;
+import model.Process_Object;
+
+public class Shortest_Job_First {
+	
+	private ArrayList<Process_Object> processList;
+	private ArrayList<Process_Object> orderedProcessList;
+
+	public Shortest_Job_First(ArrayList<Process_Object> processList) {
+		this.processList = processList;
+	}
+	
+	/*
+	 * This method first organizes the processes into shortest job first, then 
+	 * it calculates the wait time, and turn around time and then returns
+	 * the ordered process array list.
+	 */
+	public ArrayList<Process_Object> simulateSJF() {
+		orderedProcessList = new ArrayList<>();
+		/*
+		 * This first while-loop loops through the processList and finds the shortest job and
+		 * then adds it to the ordered process list, and then removes it from the process list.
+		 * 
+		 * While the list holding the processes is greater than zero, loop through the processList to
+		 * get the process with the shortest burst time. Once you've found it add it to the ordered
+		 * process list and then remove that process from the original process list.
+		 * 
+		 */
+		int firstNum = 0;
+		while(processList.size() > 0) {
+			int indexOfSmallest = 0;
+			firstNum = processList.get(0).getBurstTime();
+			for(int i = 0; i < processList.size(); i++) {
+				if(processList.get(i).getBurstTime() < firstNum) {
+					firstNum = processList.get(i).getBurstTime();
+					indexOfSmallest = i;
+				}
+			}
+			orderedProcessList.add(processList.get(indexOfSmallest));
+			processList.remove(indexOfSmallest);
+		}
+		
+		/*
+		 * This loop calculates the wait time, arrival time, and the turn around time. 
+		 */
+		int waitTime = 0;
+		int taTime = 0;
+		for(int i = 0; i < orderedProcessList.size(); i++) {
+			taTime += orderedProcessList.get(i).getBurstTime();
+			orderedProcessList.get(i).setWaitTime(waitTime);
+			orderedProcessList.get(i).setArrivalTime(waitTime);
+			orderedProcessList.get(i).setExitTime(taTime);
+			waitTime = taTime;			
+		}
+
+		return orderedProcessList;
+	}
+	
+	/*
+	 * This method calculates the average wait time and the average turn around time and prints them to the accoring text fields.
+	 * It also sets all the wait time and turn around time text fields.
+	 */
+	public void setTextFields(ArrayList<TextField> waitTxtList, ArrayList<TextField> taTxtList, TextField avgWaitTxt, TextField avgTaTxt) {
+		double avgWait = 0;
+		double avgTa = 0;
+		for(int i = 0; i < waitTxtList.size(); i++) {
+			for(Process_Object e : orderedProcessList) {
+				if(e.getProcessNum() == (i + 1)) {
+					avgWait += e.getArrivalTime();
+					avgTa += e.getExitTime();
+					waitTxtList.get(i).setText(Integer.toString(e.getArrivalTime()));
+					taTxtList.get(i).setText(Integer.toString(e.getExitTime()));
+				}
+			}
+		}
+		avgWaitTxt.setText(Double.toString(avgWait/orderedProcessList.size()));
+		avgTaTxt.setText(Double.toString(avgTa/orderedProcessList.size()));
+	}
+}

@@ -1,0 +1,26 @@
+package model;
+
+public class Red_Robin_Object {
+
+	int processNum;
+	int remainingTime;
+	public Red_Robin_Object(int processNum, int remainingTime) {
+		super();
+		this.processNum = processNum;
+		this.remainingTime = remainingTime;
+	}
+	public int getProcessNum() {
+		return processNum;
+	}
+	public void setProcessNum(int processNum) {
+		this.processNum = processNum;
+	}
+	public int getRemainingTime() {
+		return remainingTime;
+	}
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
+	}
+	
+	
+}

@@ -1,0 +1,29 @@
+package controller;
+
+import alerts.Missing_Information_Alert;
+import javafx.scene.control.ChoiceBox;
+
+public class Calculate_Algorithm {
+
+	public Calculate_Algorithm(ChoiceBox<String> numofProcessesChoiceBox, ChoiceBox<String> algorithmChoiceBox) {
+		if (numofProcessesChoiceBox.getSelectionModel().getSelectedItem() == null
+				|| algorithmChoiceBox.getSelectionModel().getSelectedItem() == null) {
+			new Missing_Information_Alert("Number of processes or algorithm selection choice boxes are empty!");
+		} else {
+			try {
+				if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 0) {
+					calculateFCFS();
+				} else if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 1) {
+					calculateSJF();
+				} else if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 2) {
+					calculateRR();
+				} else if (algorithmChoiceBox.getSelectionModel().getSelectedIndex() == 3) {
+					calculatePA();
+				}
+				processList.clear();
+			} catch (NumberFormatException ex) {
+				new Missing_Information_Alert("Missing burst time from one or more processes!");
+			}
+		}
+	}
+}

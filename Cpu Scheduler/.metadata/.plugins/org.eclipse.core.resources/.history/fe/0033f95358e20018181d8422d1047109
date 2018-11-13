@@ -1,0 +1,27 @@
+package view;
+
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+public class Show_Main_Screen {
+
+	public Show_Main_Screen(Stage stage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Main_Screen_View.fxml"));
+			AnchorPane  root = loader.load();
+			@SuppressWarnings("unused")
+			Main_Screen_View_Controller controller = loader.getController();
+			Scene scene = new Scene(root, 1127, 371);
+			scene.getStylesheets().add(getClass().getResource("/main/application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
