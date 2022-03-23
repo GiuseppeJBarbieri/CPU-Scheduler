@@ -1,4 +1,8 @@
 # CPU-Scheduler
-Test 4 different cpu scheduling algorithms.
+Used to simulate 4 different CPU scheduling algorithms.
+1. First Come First Serve (FCFS)
+2. Shortest-Job-First (SJF)
+3. Shortest Remaining Time
+4. Round Robin Scheduling
 
-This was made in eclipse using java.
+Developed using Java and JavaFX UI/UX
